@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{% static 'styles/style.css' %}">
+        <title>Главная страница</title>
+    </head>
+    <body>
+        <header>
+            <a href="{% url 'home'%}" class="logo">Glass</a>
+            <nav>
+                <ul class="header-nav">
+                    <li class="header-nav-item">
+                        <a href="{% url 'about' %}">О нас</a>
+                    </li>
+                    <li class="header-nav-item">
+                        <a href="{% url 'record' %}">Как записаться?</a>
+                    </li>
+                    <li class="header-nav-item">
+                        <a href="{% url 'feedback' %}">Отзывы</a>
+                    </li>
+                </ul>
+            </nav>
+            {% if user.is_authenticated %}<a href="{% url 'account'%}" class="user">{{ user.first_name }}</a>{% else  %}<a href="{% url 'signin'%}" class="user">Вход</a> {% endif %}<a href="{% url 'logout'%}" class="user">Выход</a>
+        </header>
+        <main>
+            {% block content %}
+
+            {% endblock %}
+        </main>
+        <footer>
+            <div class="footer-content container">
+                <form method="post">
+                    <h3>Запишитесь на приём</h3>
+                    <input type="text" name="name" placeholder="Ваше имя">
+                    <input type="text" name="phone" placeholder="Телефон">
+                    <textarea name="comment" cols="30" rows="3" placeholder="Сообщение"></textarea>
+                    <button class="btn" type="submit">Записаться на приём</button>
+                    <p>Или позвоните по номеру</p>
+                    <p><a href="tel: +74951234567">+7 (495) 123-45-67</a></p>
+                </form>
+                <a href="{% url 'home' %}" class="logo">Glass</a>
+            </div>
+        </footer>
+    {% block script %}  {% endblock %}
+    </body>
+</html>
