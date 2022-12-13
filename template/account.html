@@ -1,0 +1,32 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block content %}
+
+            <article class="promo container record">
+                <h1 class="record-title">Личный кабинет</h1>
+            </article>
+            <section class="container account">
+                <h2>Данные клиента</h2>
+                <p>Имя пользователя: <span>{{ user.first_name }} {{ user.last_name }}</span></p>
+                <p>Email: <span>{{ user.email}}</span></p>
+            </section>
+            <section class="container account">
+                <h2>Данные о посещениях</h2>
+                <table>
+                    <tr>
+                        <th>№ Записи</th>
+                        <th>Название</th>
+                        <th>Цена</th>
+                    </tr>
+                    {% for rec in object_list %}
+                    {% if user.id == rec.authorId.id %}
+                    <tr>
+                        <td>{{ rec.id }}</td>
+                        <td>{{ rec.service.name }}</td>
+                        <td>{{ rec.service.price }}</td>
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+                </table>
+            </section>
+{% endblock %}
